@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }) {
               />
             </div>
             <div className="flex flex-col mb-4">
-              <label className="mb-2 font-bold text-lg text-gray-900" for="password">
+              <label className="mb-2 font-bold text-lg text-gray-900" htmlFor="password">
                 Password
               </label>
               <input
