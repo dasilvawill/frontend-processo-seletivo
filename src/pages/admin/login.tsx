@@ -19,11 +19,12 @@ export default function MyApp() {
       })
     } else {
       try {
-        await api.post("/login", {
+        const login = await api.post("/login", {
           user_name: name,
           password: password
         })
         setAuth(true)
+        localStorage.setItem("token",login.data.token)
       } catch {
         Swal.fire({
           title: "Usuário ou senha inválidos!",
