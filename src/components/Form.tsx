@@ -46,7 +46,7 @@ export default function Form(props: FormProps) {
     externalConsultant,
     setExternalConsultant,
     consultantsOptionsList,
-    setConsultantsOptionsList,
+    setConsultantsOptionsList
   } = useContext(RegistrationContext)
 
   const [consultantsOptions, setConsultantsOptions] = useState([])
@@ -81,7 +81,7 @@ export default function Form(props: FormProps) {
       Swal.fire({
         title: "Nome incompleto",
         text: "Informe nome e sobrenome!",
-        icon: "warning",
+        icon: "warning"
       })
       return true
     }
@@ -93,7 +93,7 @@ export default function Form(props: FormProps) {
         title: "E-mail inválido",
         text: "Digite seu e-mail!",
         confirmButtonText: "Ok",
-        icon: "warning",
+        icon: "warning"
       })
       return true
     }
@@ -105,7 +105,7 @@ export default function Form(props: FormProps) {
         title: "Celular incompleto",
         text: "Digite seu celular completo!",
         confirmButtonText: "Ok",
-        icon: "warning",
+        icon: "warning"
       })
       return true
     }
@@ -118,7 +118,7 @@ export default function Form(props: FormProps) {
           title: "Consultor não preenchido",
           text: "Selecione o consultor!",
           confirmButtonText: "Ok",
-          icon: "warning",
+          icon: "warning"
         })
         return true
       }
@@ -131,8 +131,8 @@ export default function Form(props: FormProps) {
         ...consultantsOptions,
         {
           value: consultant.user_name,
-          label: consultant.complete_name,
-        },
+          label: consultant.complete_name
+        }
       ])
     })
   }
@@ -192,15 +192,12 @@ export default function Form(props: FormProps) {
           <Switch
             label="Utilizar um nome social"
             labelProps={{
-              className:
-                "dark:text-grey-50 font-light, select-none, cursor-pointer, mt-px, ml-3",
+              className: "dark:text-gray-50 font-light, select-none, cursor-pointer, mt-px, ml-3"
             }}
             id="socialName"
             color="blue"
             defaultChecked={switchShowSocialName}
-            onChange={() => (
-              setSwitchShowSocialName(!switchShowSocialName), setSocialName("")
-            )}
+            onChange={() => (setSwitchShowSocialName(!switchShowSocialName), setSocialName(""))}
           />
         </div>
 
@@ -219,8 +216,7 @@ export default function Form(props: FormProps) {
           <Switch
             label="Tive ajuda de um consultor externo"
             labelProps={{
-              className:
-                "dark:text-grey-50 font-light, select-none, cursor-pointer, mt-px, ml-3",
+              className: "dark:text-gray-50 font-light, select-none, cursor-pointer, mt-px, ml-3"
             }}
             id="externalConsultant"
             color="blue"
@@ -238,13 +234,9 @@ export default function Form(props: FormProps) {
             textLabel={"Consultor"}
             name={externalConsultant?.value}
             id={externalConsultant?.value}
-            placeholder={
-              externalConsultant ? externalConsultant.label : "Selecione"
-            }
+            placeholder={externalConsultant ? externalConsultant.label : "Selecione"}
             options={consultantsOptions}
-            noOptionsMessage={
-              "Desculpe! Não encontramos o que estava procurando ☹️"
-            }
+            noOptionsMessage={"Desculpe! Não encontramos o que estava procurando ☹️"}
             onChange={(e) => setExternalConsultant(e)}
             isLoading={!consultantsOptions ? true : false}
             key={externalConsultant.value}

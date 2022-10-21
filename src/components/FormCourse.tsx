@@ -429,7 +429,7 @@ export default function FormCourse(props: CourseProps) {
     <div>
       <form onSubmit={FormSubmit}>
         <div id="modality">
-          <label className="font-light text-sm text-grey-700">Modalidade</label>
+          <label className="font-light text-sm text-gray-700">Modalidade</label>
           <div className="flex mt-1 space-x-2 justify-center">
             <ButtonModality
               label="Semipresencial"

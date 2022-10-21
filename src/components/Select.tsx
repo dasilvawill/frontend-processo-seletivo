@@ -15,7 +15,7 @@ interface SelectProps {
 export default function SelectOptions(props: SelectProps) {
   return (
     <div className="flex flex-col mb-2">
-      <label className="mb-2 font-light text-sm text-grey-700 dark:text-grey-50">
+      <label className="mb-2 font-light text-sm text-gray-700 dark:text-gray-50">
         {props.textLabel}
       </label>
       <Select

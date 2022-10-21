@@ -209,19 +209,19 @@ export default function FormCourseResume(props: CourseResumeProps) {
     <Fragment>
       <div className="md:max-w-[450px] m-auto">
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
-          <div className="flex justify-center font-light text-lg text-center border-2 border-grey-300 dark:border-grey-500 rounded-xl p-6 bg-grey-100 dark:bg-grey-700 text-grey-700 dark:text-grey-50">
+          <div className="flex justify-center font-light text-lg text-center border-2 border-gray-300 dark:border-gray-500 rounded-xl p-6 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-50">
             <p>
               <FiMonitor className="m-auto text-4xl mb-3" />
               {showCourseName}
             </p>
           </div>
-          <div className="flex justify-center font-light text-lg text-center border-2 border-grey-300 dark:border-grey-500 rounded-xl p-6 bg-grey-100 dark:bg-grey-700 text-grey-700 dark:text-grey-50">
+          <div className="flex justify-center font-light text-lg text-center border-2 border-gray-300 dark:border-gray-500 rounded-xl p-6 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-50">
             <p>
               <BsCalendarWeek className="m-auto text-4xl mb-3" />
               {showModalityName}
             </p>
           </div>
-          <div className="flex justify-center font-light text-lg text-center border-2 border-grey-300 dark:border-grey-500 rounded-xl p-6 bg-grey-100 dark:bg-grey-700 text-grey-700 dark:text-grey-50">
+          <div className="flex justify-center font-light text-lg text-center border-2 border-gray-300 dark:border-gray-500 rounded-xl p-6 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-50">
             <p>
               <FiClock className="m-auto text-4xl mb-3" />
               {unity.label}

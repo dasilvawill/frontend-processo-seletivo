@@ -26,18 +26,18 @@ export default function FormPersonalData(props: PersonalDataProps) {
     disabilityRelief,
     setDisabilityRelief,
     gender,
-    setGender,
+    setGender
   } = useContext(RegistrationContext)
 
   const genderOptions = [
     {
       label: "Feminino",
-      value: "F",
+      value: "F"
     },
     {
       label: "Masculino",
-      value: "M",
-    },
+      value: "M"
+    }
   ]
 
   function handleIncompleteAndInvalidCpf() {
@@ -46,7 +46,7 @@ export default function FormPersonalData(props: PersonalDataProps) {
         title: "CPF incompleto",
         text: "Digite o CPF completo!",
         confirmButtonText: "Ok",
-        icon: "warning",
+        icon: "warning"
       })
       return true
     } else {
@@ -55,7 +55,7 @@ export default function FormPersonalData(props: PersonalDataProps) {
           title: "CPF inválido",
           text: "Digite seu CPF!",
           confirmButtonText: "Ok",
-          icon: "warning",
+          icon: "warning"
         })
         setCPF("")
         return true
@@ -69,7 +69,7 @@ export default function FormPersonalData(props: PersonalDataProps) {
         title: "Gênero não preenchido",
         text: "Selecione o gênero!",
         confirmButtonText: "Ok",
-        icon: "warning",
+        icon: "warning"
       })
       return true
     }
@@ -79,9 +79,7 @@ export default function FormPersonalData(props: PersonalDataProps) {
     e.preventDefault()
     handleIncompleteAndInvalidCpf() || hanldeNotFilledSelect()
       ? null
-      : props.personalDataChange?.(
-          new PersonalData(CPF, new Date(birthDate), disabilityRelief)
-        )
+      : props.personalDataChange?.(new PersonalData(CPF, new Date(birthDate), disabilityRelief))
   }
 
   return (
@@ -114,9 +112,7 @@ export default function FormPersonalData(props: PersonalDataProps) {
           key={gender?.value}
           placeholder={gender ? gender.label : "Selecione"}
           options={genderOptions}
-          noOptionsMessage={
-            "Desculpe! Não encontramos o que estava procurando ☹️"
-          }
+          noOptionsMessage={"Desculpe! Não encontramos o que estava procurando ☹️"}
           onChange={(e) => setGender(e)}
           isLoading={!genderOptions ? true : false}
         />
@@ -128,13 +124,11 @@ export default function FormPersonalData(props: PersonalDataProps) {
               color="blue"
               label="Sou portador de necessidades especiais"
               labelProps={{
-                className:
-                  "dark:text-grey-50 font-light, select-none, cursor-pointer, mt-px, ml-3",
+                className: "dark:text-gray-50 font-light, select-none, cursor-pointer, mt-px, ml-3"
               }}
               defaultChecked={switchShowDeficiency}
               onChange={() => (
-                setSwitchShowDeficiency(!switchShowDeficiency),
-                setDisabilityRelief("")
+                setSwitchShowDeficiency(!switchShowDeficiency), setDisabilityRelief("")
               )}
             />
           </div>

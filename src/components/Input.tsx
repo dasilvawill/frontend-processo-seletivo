@@ -20,14 +20,14 @@ export default function Input(props: InputProps) {
   return (
     <div className="flex flex-col mb-2">
       <label
-        className="mb-2 font-light text-sm text-grey-700 dark:text-grey-50"
+        className="mb-2 font-light text-sm text-gray-700 dark:text-gray-50"
         htmlFor={props.idInput}
       >
         {props.textLabel}
       </label>
       {props.existsMask ? (
         <InputMask
-          className={`h-10 mb-2 border border-grey-300 dark:border-grey-500 rounded-2xl focus:outline-none bg-grey-50 dark:bg-grey-700 px-4 py-2 focus:bg-white text-grey-700 dark:text-grey-50 focus:border-blue-300 dark:focus:border-blue-700 hover:border-blue-300 dark:hover:border-blue-700 dark:focus:bg-grey-600 ${
+          className={`h-10 mb-2 border border-gray-300 dark:border-gray-500 rounded-2xl focus:outline-none bg-gray-50 dark:bg-gray-700 px-4 py-2 focus:bg-white text-gray-700 dark:text-gray-50 focus:border-blue-300 dark:focus:border-blue-700 hover:border-blue-300 dark:hover:border-blue-700 dark:focus:bg-gray-600 ${
             props.className ? props.className : "w-[480px]"
           }`}
           id={props.idInput}
@@ -40,7 +40,7 @@ export default function Input(props: InputProps) {
         />
       ) : (
         <input
-          className={`h-10 mb-2 border border-grey-300 dark:border-grey-500 rounded-2xl focus:outline-none bg-grey-50 dark:bg-grey-700 px-4 py-2 focus:bg-white text-grey-700 dark:text-grey-50 focus:border-blue-300 dark:focus:border-blue-700 hover:border-blue-300 dark:hover:border-blue-700 dark:focus:bg-grey-600 ${
+          className={`h-10 mb-2 border border-gray-300 dark:border-gray-500 rounded-2xl focus:outline-none bg-gray-50 dark:bg-gray-700 px-4 py-2 focus:bg-white text-gray-700 dark:text-gray-50 focus:border-blue-300 dark:focus:border-blue-700 hover:border-blue-300 dark:hover:border-blue-700 dark:focus:bg-gray-600 ${
             props.className ? props.className : "w-[480px]"
           }`}
           id={props.idInput}

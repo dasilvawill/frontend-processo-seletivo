@@ -2,7 +2,7 @@ import { Fragment, useState } from "react"
 import Input from "../components/Input"
 import ButtonNext from "../components/ButtonNext"
 
-function MyApp({ Component, pageProps }) {
+function MyApp() {
   const [username, setUsername] = useState("")
   const [userCpf, setUserCpf] = useState("")
   const [userEmail, setUserEmail] = useState("")
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
                 Password
               </label>
               <input
-                className="border py-2 px-3 text-grey-800"
+                className="border py-2 px-3 text-gray-800"
                 type="password"
                 name="password"
                 id="password"
