@@ -10,6 +10,7 @@ interface SelectProps {
   isLoading: boolean
   noOptionsMessage: string
   loadingMessage?: string
+  className?: string
 }
 
 export default function SelectOptions(props: SelectProps) {
@@ -29,7 +30,7 @@ export default function SelectOptions(props: SelectProps) {
         isLoading={props.isLoading}
         noOptionsMessage={() => props.noOptionsMessage}
         loadingMessage={() => props.loadingMessage}
-        className="my-react-select-container"
+        className={props.className + " my-react-select-container"}
         classNamePrefix="my-react-select"
       />
     </div>

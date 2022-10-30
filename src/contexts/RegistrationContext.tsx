@@ -23,8 +23,8 @@ type UserContextType = {
 
   CPF: string
   setCPF: (newState: string) => void
-  birthDate: Date
-  setBirthDate: (newState: Date) => void
+  birthDate: Date | string
+  setBirthDate: (newState: Date | string) => void
   gender: any
   setGender: (newState: any) => void
   switchShowDeficiency: boolean
@@ -91,6 +91,8 @@ type UserContextType = {
   setExternalConsultant: (newState: any) => void
   switchShowExternalConsultant: boolean
   setSwitchShowExternalConsultant: (newState: boolean) => void
+  candidateData: any
+  setCandidateData: (newState: boolean) => void
 
   displayStep1: (newState: void) => void
   displayStep2: (newState: void) => void
@@ -109,13 +111,9 @@ type UserContextType = {
   stepSevenVisible: boolean
 }
 
-export const RegistrationContext = createContext<UserContextType>(
-  {} as UserContextType
-)
+export const RegistrationContext = createContext<UserContextType>({} as UserContextType)
 
-export const RegistrationContextProvider = ({
-  children,
-}: RegistrationContextProps) => {
+export const RegistrationContextProvider = ({ children }: RegistrationContextProps) => {
   const [offerList, setOfferList] = useState("")
   const [consultantsOptionsList, setConsultantsOptionsList] = useState("")
 
@@ -126,7 +124,7 @@ export const RegistrationContextProvider = ({
   const [switchShowSocialName, setSwitchShowSocialName] = useState(false)
 
   const [CPF, setCPF] = useState("")
-  const [birthDate, setBirthDate] = useState(new Date("2000-01-01"))
+  const [birthDate, setBirthDate] = useState(new Date("2000-01-01") || "")
   const [gender, setGender] = useState("")
   const [switchShowDeficiency, setSwitchShowDeficiency] = useState(false)
   const [disabilityRelief, setDisabilityRelief] = useState("")
@@ -160,8 +158,8 @@ export const RegistrationContextProvider = ({
   const [selectedEntranceExam, setSelectedEntranceExam] = useState("")
   const [entryFormId, setEntryFormId] = useState("")
   const [externalConsultant, setExternalConsultant] = useState("")
-  const [switchShowExternalConsultant, setSwitchShowExternalConsultant] =
-    useState(false)
+  const [switchShowExternalConsultant, setSwitchShowExternalConsultant] = useState(false)
+  const [candidateData, setCandidateData] = useState<any>()
 
   const [visible, setVisible] = useState<
     "step1" | "step2" | "step3" | "step4" | "step5" | "step6" | "step7"
@@ -265,6 +263,9 @@ export const RegistrationContextProvider = ({
         switchShowExternalConsultant,
         setSwitchShowExternalConsultant,
 
+        candidateData,
+        setCandidateData,
+
         displayStep1,
         displayStep2,
         displayStep3,
@@ -279,7 +280,7 @@ export const RegistrationContextProvider = ({
         stepFourVisible: visible === "step4",
         stepFiveVisible: visible === "step5",
         stepSixVisible: visible === "step6",
-        stepSevenVisible: visible === "step7",
+        stepSevenVisible: visible === "step7"
       }}
     >
       {children}

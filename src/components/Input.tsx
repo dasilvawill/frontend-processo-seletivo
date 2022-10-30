@@ -13,7 +13,9 @@ interface InputProps {
   mask?: string
   className?: string
   onChange?: (valueInput: any) => void
+  onClick?: (valueInput: any) => void
   onBlur?: (valueInput: any) => void
+  disabled?: boolean
 }
 
 export default function Input(props: InputProps) {
@@ -34,9 +36,11 @@ export default function Input(props: InputProps) {
           type={props.typeInput}
           value={props.valueInput}
           onChange={(e) => props.onChange?.(e.target.value)}
+          onClick={props.onClick}
           onBlur={props.onBlur}
           required={props.required}
           mask={props.mask}
+          disabled={props.disabled}
         />
       ) : (
         <input
@@ -52,6 +56,7 @@ export default function Input(props: InputProps) {
           placeholder={props.placeholder}
           autoComplete={props.autocomplete}
           name={props.name}
+          disabled={props.disabled}
         />
       )}
     </div>
