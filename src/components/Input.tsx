@@ -39,6 +39,7 @@ export default function Input(props: InputProps) {
           onClick={props.onClick}
           onBlur={props.onBlur}
           required={props.required}
+          placeholder={props.placeholder}
           mask={props.mask}
           disabled={props.disabled}
         />

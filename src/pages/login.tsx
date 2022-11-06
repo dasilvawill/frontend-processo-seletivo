@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react"
-import Input from "../../components/Input"
-import ButtonNext from "../../components/ButtonNext"
-import { api } from "../../services/api"
-import HomeAdmin from "./home"
+import Input from "../components/Input"
+import ButtonNext from "../components/ButtonNext"
+import { api } from "../services/api"
+import HomeAdmin from "./admin/home"
 import Swal from "sweetalert2"
 
 export default function MyApp() {

@@ -1,26 +1,32 @@
 import Link from "next/link"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import Swal from "sweetalert2"
 import Input from "../../../components/Input"
 import { RegistrationContext } from "../../../contexts/RegistrationContext"
 import { api } from "../../../services/api"
 
 export default function Menu() {
-  const { CPF, setCPF, candidateData, setCandidateData } = useContext(RegistrationContext)
+  const { candidateData, setCandidateData } = useContext(RegistrationContext)
+  const [redirect, setRedirect] = useState("")
+  const [cpf, setCpf] = useState("")
 
-  useEffect(() => {
-    api.get("/inscriptions/get-inscriptions").then((response) => {
-      setCandidateData(response.data[0])
-    })
-  }, [])
-
-  function handleSearchCandidate(CPF: string) {
-    CPF !== candidateData?.person?.cpf &&
-      Swal.fire({
-        title: "CPF não encontrado na base de dados!",
-        text: "Pesquise por outro candidato ou tente novamente",
-        confirmButtonText: "Ok",
-        icon: "warning"
+  function handleSearchCandidate(cpf: string) {
+    api
+      .get("/person/" + cpf + "/inscriptions", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+      })
+      .then((response) => {
+        setCandidateData(response.data[0])
+        console.log(candidateData, "candidate")
+        setRedirect("/admin/search-candidate")
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "CPF não encontrado",
+          text: "O candidato não existe na base de dados!",
+          confirmButtonText: "Ok",
+          icon: "warning"
+        })
       })
   }
 
@@ -33,40 +39,21 @@ export default function Menu() {
           <Input
             idInput="userCpf"
             typeInput="text"
-            valueInput={CPF}
-            onChange={setCPF}
+            valueInput={cpf}
+            onChange={setCpf}
+            placeholder="Pesquise o candidato"
+            onBlur={() => !cpf.includes("_") && handleSearchCandidate(cpf)}
             className="border-2 border-gray-300 bg-white h-10 px-5 pr-8 ml-4 rounded-lg text-sm focus:outline-none w-36 2xl:w-56"
             existsMask={true}
             mask={"999.999.999-99"}
             required
           />
-          {CPF === candidateData?.person?.cpf ? (
-            <Link href="/admin/search-candidate">
-              <button
-                type="submit"
-                className="mr-50 ml-2 -mt-2"
-                onClick={() => handleSearchCandidate(CPF)}
-              >
-                <svg
-                  className="text-gray-600 h-4 w-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  id="Capa_1"
-                  x="0px"
-                  y="0px"
-                  viewBox="0 0 56.966 56.966"
-                  width="512px"
-                  height="512px"
-                >
-                  <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                </svg>
-              </button>
-            </Link>
-          ) : (
+
+          <Link href={redirect}>
             <button
               type="submit"
               className="mr-50 ml-2 -mt-2"
-              onClick={() => handleSearchCandidate(CPF)}
+              onClick={() => handleSearchCandidate(cpf)}
             >
               <svg
                 className="text-gray-600 h-4 w-4 fill-current"
@@ -82,26 +69,28 @@ export default function Menu() {
                 <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
               </svg>
             </button>
-          )}
+          </Link>
         </div>
         <div className="grid grid-cols-1 divide-y divide-gray-500 mx-2">
-          <button className="flex p-4 text-xl border-">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
-              />
-            </svg>
-            <p className="pl-4">Cadastros Básicos</p>
-          </button>
+          <Link href="/admin/course-list">
+            <button className="flex p-4 text-xl border-">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+                />
+              </svg>
+              <p className="pl-4">Cursos</p>
+            </button>
+          </Link>
           <button className="flex p-4 text-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -159,8 +148,8 @@ export default function Menu() {
           <Input
             idInput="userCpf"
             typeInput="text"
-            valueInput={CPF}
-            onChange={setCPF}
+            valueInput={cpf}
+            onChange={setCpf}
             className="border-2 border-gray-300 bg-white h-10 px-5 pr-8 sm:mx-32 rounded-lg text-sm focus:outline-none max-w-56"
             existsMask={true}
             mask={"999.999.999-99"}
@@ -170,7 +159,7 @@ export default function Menu() {
             <button
               type="submit"
               className="absolute -right-20 sm:right-16 top-2 mt-5 mr-24"
-              onClick={() => handleSearchCandidate(CPF)}
+              onClick={() => handleSearchCandidate(cpf)}
             >
               <svg
                 className="text-gray-600 h-4 w-4 fill-current"

@@ -33,18 +33,6 @@ export default function PersonalInformationMobile(props: PersonalInformationProp
       <div className="flex mt-2">
         <div className="mb-4 mx-4">
           <Input
-            textLabel="Nome Social"
-            idInput="socialName"
-            typeInput="text"
-            valueInput={props.socialName}
-            className="w-[72vw]"
-            disabled
-          />
-        </div>
-      </div>
-      <div className="flex mt-2">
-        <div className="mb-4 mx-4">
-          <Input
             textLabel="CPF"
             idInput="cpf"
             typeInput="text"

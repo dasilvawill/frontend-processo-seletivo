@@ -9,6 +9,7 @@ import PersonalInformationMobile from "./components/candidateInformation/mobile/
 import AddressInformationMobile from "./components/candidateInformation/mobile/AddressInformations"
 import CourseInformationMobile from "./components/candidateInformation/mobile/CourseInformation"
 import moment from "moment"
+import Table from "./components/Table"
 
 export default function SearchCandidate() {
   const {
@@ -80,7 +81,7 @@ export default function SearchCandidate() {
     setSelectedEntranceExam(candidateData?.entrance_exam?.entrance_exam)
     setUnity(candidateData?.course?.AppliedMatrix[0].unity?.unit_name)
     setNameCourse(candidateData?.course.name)
-  }, [candidateData])
+  }, [])
 
   function parseDataBR(birthDate: string) {
     return moment(candidateData?.person?.birth_date).utc().format("DD/MM/YYYY")
@@ -94,35 +95,9 @@ export default function SearchCandidate() {
         <Menu />
         <div className="flex justify-center items-center mt-20 w-full bg-white">
           <div>
-            <h1 className="text-center text-gray-800 text-2xl font-bold mb-6">
-              Informações do candidato
-            </h1>
+            <h1 className="text-center text-gray-800 text-2xl font-bold mb-6">Lista de Cursos</h1>
             <hr /> <hr />
-            <PersonalInformation
-              name={name}
-              socialName={socialName}
-              CPF={CPF}
-              birthDate={birthDate}
-              gender={gender}
-              email={email}
-              phone={phone}
-            />
-            <AddressInformation
-              cep={cep}
-              state={state}
-              city={city}
-              district={district}
-              street={street}
-              number={number}
-              complement={complement}
-            />
-            <CourseInformation
-              modality={modality}
-              unity={unity}
-              nameCourse={nameCourse}
-              entryFormId={entryFormId}
-              selectedEntranceExam={selectedEntranceExam}
-            />
+            <Table />
           </div>
         </div>
       </div>
@@ -130,36 +105,11 @@ export default function SearchCandidate() {
       {/* MOBILE */}
       <div className="md:hidden flex-wrap ">
         <Menu />
-        <div className="flex justify-center items-center h-[92vh] mt-20 w-full bg-white">
-          <div className="h-full bg-white rounded">
-            <h1 className="text-center text-gray-800 text-2xl font-bold mb-6">
-              Informações do candidato
-            </h1>
-            <PersonalInformationMobile
-              name={name}
-              socialName={socialName}
-              CPF={CPF}
-              birthDate={birthDate}
-              gender={gender}
-              email={email}
-              phone={phone}
-            />
-            <AddressInformationMobile
-              cep={cep}
-              state={state}
-              city={city}
-              district={district}
-              street={street}
-              number={number}
-              complement={complement}
-            />
-            <CourseInformationMobile
-              modality={modality}
-              unity={unity}
-              nameCourse={nameCourse}
-              entryFormId={entryFormId}
-              selectedEntranceExam={selectedEntranceExam}
-            />
+        <div className="flex justify-center items-center mt-20 w-full bg-white">
+          <div>
+            <h1 className="text-center text-gray-800 text-2xl font-bold mb-6">Lista de Cursos</h1>
+            <hr /> <hr />
+            <Table />
           </div>
         </div>
       </div>
