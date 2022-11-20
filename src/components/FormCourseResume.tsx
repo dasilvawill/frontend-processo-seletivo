@@ -55,12 +55,17 @@ export default function FormCourseResume(props: CourseResumeProps) {
   const lastName = name.split(" ").slice(1, 20).join(" ")
   const birthDateFormatBr = moment.utc(birthDate).format("DD/MM/YYYY")
 
-  // async function getUfIdBaseFtec() {
-  //   const result = await api.get(`/ufid`)
-  //   let uf = result.data.find((element) => element.SIGLA === state)
-  //   const ufId = uf.UF_ID
-  //   return ufId
-  // }
+  async function getUfIdSeletiveProcessDatabase() {
+
+    const result = await api.get(`/ufs/get-ufs`, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+
+    let uf = result.data.find((element) => element.uf === state)
+    const ufId = uf.uf_id
+    return ufId
+
+  }
 
   function newEnrollment() {
     Swal.fire({
@@ -70,7 +75,8 @@ export default function FormCourseResume(props: CourseResumeProps) {
       showConfirmButton: false,
       timer: 6800
     })
-    // const ufId = await getUfIdBaseFtec()
+    const ufId = getUfIdSeletiveProcessDatabase()
+
     // try {
     //   await api.post("/new-enrollment", {
     //     nome_contato: firstName,
@@ -136,57 +142,47 @@ export default function FormCourseResume(props: CourseResumeProps) {
     // }
 
     let retorno = {
-      nome_contato: firstName,
-      sobrenome_contato: lastName,
-      nome_social: socialName,
-      email_contato: email,
-      fone_contato: phone,
-      como_chegou: null,
-      filial_id: filialCourse,
-      forma_ingresso: entryFormId,
-      vestibular_id:
-        entryForm.value === "enem-encceja" ? selectedEntranceExam : selectedEntranceExam.value,
-      filial_old: null,
-      local_prova_id: null,
-      enem_ano: yearEnem,
-      enem_inscricao: codeEnemAndEncceja,
-      enem_nota_objetiva: objectiveTestGrade,
-      enem_nota_redacao: redactionTestGrade,
-      modalidade_ensino: courseModality,
-      modalidade: courseModality,
-      opcao_curso: null,
-      turno: courseShift,
-      selected_opcao1:
-        selectedCourse.value + "#" + courseIdShift + "#" + courseMatrix + "#" + showCourseName,
-      selected_opcao2:
-        selectedCourse.value + "#" + courseIdShift + "#" + courseMatrix + "#" + showCourseName,
-      hidden_curso_id: null,
-      hidden_turno_id: null,
-      hidden_matriz: null,
-      hidden_curso: null,
-      opcao1: selectedCourse.value,
-      opcao2: selectedCourse.value,
+      PESSOA: 'DADOS PESSOA',
+      complete_name: firstName + ' ' + lastName,
+      social_name: socialName,
+      gender: gender.value,
+      ethnicity_id: 4,
+      birth_date: birthDateFormatBr,
       cpf: CPF,
-      documento_estrangeiro: null,
-      pais: 1,
-      nome: firstName,
-      sobrenome: lastName,
-      sexo: gender.value,
-      data_nascimento: birthDateFormatBr,
-      email: email,
-      fone1: phone,
-      fone2: phone,
+      providence: disabilityRelief,
+      phone_number: phone,
+      phone_number_2: phone,
+      business_phone: phone,
+      updated_at: new Date(),
+      updated_by: 'inscription',
+      created_at: new Date(),
+
+      ENDEREÇO: 'DADOS ENDEREÇO',
       cep: cep,
-      // uf_id: ufId,
-      cidade: city,
-      bairro: district,
-      logradouro: street,
-      numero: number,
-      complemento: complement,
-      cidade_escola: null,
-      atendimento_consultor: switchShowExternalConsultant,
-      consultor_usuarioid: externalConsultant.value,
-      providencia: disabilityRelief
+      city: city,
+      district: district,
+      street: street,
+      number: number,
+      complement: complement,
+      uf_id: ufId,
+      email: email,
+
+      INSCRICAO: 'DADOS INSCRICAO',
+      process_type_id: entryFormId,
+      course_id: selectedCourse.value,
+      entrance_exam_id: selectedEntranceExam.value,
+      user_id_consulter: externalConsultant.value,
+      inscription_status_id: 1, /* Inscrito */
+      overall_ranking_result: '',
+ 
+      // vestibular_id: entryForm.value === "enem-encceja" ? selectedEntranceExam : selectedEntranceExam.value,
+      
+      ENEM: 'DADOS ENEM',
+      year: yearEnem,
+      inscription: codeEnemAndEncceja,
+      objective_note: objectiveTestGrade,
+      essay_note: redactionTestGrade
+      
     }
     console.log(retorno)
   }
