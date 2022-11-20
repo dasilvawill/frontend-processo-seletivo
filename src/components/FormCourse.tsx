@@ -57,9 +57,9 @@ export default function FormCourse(props: CourseProps) {
   const [coursesOptions, setCoursesOptions] = useState([])
   const [selectedEntranceExamEnem] = useState([])
   const [unityOptions, setUnityOptions] = useState([])
-  const [listVestibular, setListVestibular] = useState([])
+  const [listVestibular, setListVestibular] = useState<any>([])
   const [notice, setNotice] = useState([])
-  const [entranceExamOptions, setEntranceExamOptions] = useState([])
+  const [entranceExamOptions, setEntranceExamOptions] = useState<any>([])
 
   const entryFormsOptions = [
     {
@@ -102,11 +102,11 @@ export default function FormCourse(props: CourseProps) {
 
   function fillUnityByModality() {
     offerList.forEach((unity) => {
-      unity.MODALIDADE === modality
-        ? !unityList.find((value) => value.label === unity.UNIDADE)
+      unity.modalidade === modality
+        ? !unityList.find((value) => value.label === unity.unidade)
           ? unityList.push({
-              label: unity["UNIDADE"],
-              value: unity["UNIDADE"]
+              label: unity["unidade"],
+              value: unity["unidade"]
             })
           : null
         : null
@@ -120,51 +120,66 @@ export default function FormCourse(props: CourseProps) {
 
   function fillCourseByModalityAndUnity() {
     offerList.forEach((course) => {
-      course.MODALIDADE === modality && course.UNIDADE === unity?.value
-        ? !coursesList.find((value) => value.label === course.CURSO)
+      course.modalidade === modality && course.unidade === unity?.value
+        ? !coursesList.find((value) => value.label === course.curso)
           ? coursesList.push({
-              label: course["CURSO"],
-              value: course["CURSO_ID"]
+              label: course["curso"],
+              value: course["curso_id"]
             })
           : null
         : null
     })
     setCoursesOptions(coursesList)
+    console.log(coursesOptions, "courses")
   }
 
   useEffect(() => {
     fillCourseByModalityAndUnity()
   }, [unity])
 
+  useEffect(() => {
+    setListVestibular([])
+    setListVestibular(
+      offerList.find((value) => value.curso_id === selectedCourse?.value)?.VESTIBULARES
+    )
+    console.log(listVestibular, "listtttt")
+  }, [selectedCourse])
+
   function fillEntranceExamByModalityAndUnity() {
     if (entryForm?.value === "vestibular") {
       setEntranceExamOptions(listVestibular)
+      console.log(entranceExamOptions, "wwww")
+      console.log(coursesOptions, "lista de cursos")
     }
-    if (entryForm?.value === "transferencia" || entryForm?.value === "reingresso") {
-      setEntranceExamOptions([])
-      listVestibular?.map((vestibular) => {
-        setListVestibular((vestibularesOptions) => [
-          ...vestibularesOptions,
-          {
-            value: vestibular.id,
-            label: vestibular.descricao
-          }
-        ])
-      })
-      setEntranceExamOptions(
-        listVestibular.filter((value) =>
-          value.label
-            ?.normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase()
-            .includes("transferencia")
-        )
-      )
-    }
-    if (entryForm?.value === "enem-encceja") {
-      setEntranceExamOptions([])
-      setEntranceExamOptions(listVestibular?.filter((value) => value.permitir_nota_enem === "1"))
-    }
+    // if (entryForm?.value === "vestibular") {
+    //   setEntranceExamOptions(listVestibular.label)
+    //   console.log(entranceExamOptions, "wwww")
+    // }
+    // if (entryForm?.value === "transferencia" || entryForm?.value === "reingresso") {
+    //   setEntranceExamOptions("")
+    //   listVestibular?.map((vestibular) => {
+    //     setListVestibular((vestibularesOptions) => [
+    //       ...vestibularesOptions,
+    //       {
+    //         value: vestibular.value,
+    //         label: vestibular.label
+    //       }
+    //     ])
+    //   })
+    //   // setEntranceExamOptions(
+    //   //   listVestibular.filter((value) =>
+    //   //     value.label
+    //   //       ?.normalize("NFD")
+    //   //       .replace(/[\u0300-\u036f]/g, "")
+    //   //       .toLowerCase()
+    //   //       .includes("transferencia")
+    //   //   )
+    //   // )
+    // }
+    // if (entryForm?.value === "enem-encceja") {
+    //   setEntranceExamOptions([])
+    //   setEntranceExamOptions(listVestibular?.filter((value) => value.permitir_nota_enem === "1"))
+    // }
   }
 
   useEffect(() => {
@@ -186,24 +201,25 @@ export default function FormCourse(props: CourseProps) {
   }
 
   function handleCourses(e: any) {
-    setEntryForm("")
     setSelectedEntranceExam("")
     setSelectedCourse(e)
-    let selectedCourse = offerList.find((value) => value.CURSO_ID === e?.value)
-    setCourseModality(selectedCourse?.MODALIDADE_DESCRICAO)
-    setFilialCourse(selectedCourse?.FILIAL)
-    setCourseShift(selectedCourse?.TURNO)
-    setCourseIdShift(selectedCourse?.TURNO_ID)
-    setCourseMatrix(selectedCourse?.MATRIZ_APLICADA)
-    setShowCourseName(selectedCourse?.DESCRICAO_INSCRICAO)
+    let selectedCourse = offerList.find((value) => value.curso_id === e?.value)
+    setCourseModality(selectedCourse?.modalidade_descricao)
+    setFilialCourse(selectedCourse?.filial)
+    setCourseShift(selectedCourse?.turno)
+    setCourseIdShift(selectedCourse?.turno_id)
+    setCourseMatrix(selectedCourse?.matriz_aplicada)
+    setShowCourseName(selectedCourse?.descricao_inscricao)
   }
 
-  useEffect(() => {
-    setListVestibular([])
-    setListVestibular(
-      offerList.find((value) => value.CURSO_ID === selectedCourse?.value)?.VESTIBULARES
-    )
-  }, [selectedCourse])
+  // useEffect(() => {
+  //   setListVestibular([])
+  //   setListVestibular(
+  //     offerList.find((value) => value.curso === selectedCourse?.value)?.VESTIBULARES
+  //   )
+
+  //   console.log(listVestibular, "aaaaaaa")
+  // }, [selectedCourse])
 
   function setSelectedEntranceExamEnemFunction() {
     if (courseModality === "Presencial" || courseModality === "EAD") {
@@ -352,7 +368,7 @@ export default function FormCourse(props: CourseProps) {
     entryForm?.value != "enem-encceja"
       ? setSelectedEntranceExam(e)
       : setSelectedEntranceExamEnemFunction()
-    setNotice(offerList.find((value) => value.CURSO_ID === selectedCourse?.value)?.edital)
+    setNotice(offerList.find((value) => value.curso_id === selectedCourse?.value)?.edital)
   }
 
   function hanldeNotFilledSelect() {

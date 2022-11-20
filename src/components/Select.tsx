@@ -6,9 +6,11 @@ interface SelectProps {
   id: string
   onChange: (valueOnChange: any) => void
   placeholder: string
-  options: { label: string; value: string; idFormFtec?: number }[]
-  isLoading: boolean
-  noOptionsMessage: string
+  options:
+    | { label: string; value: string; idFormFtec?: number }[]
+    | { label: string; value: number }[]
+  isLoading?: boolean
+  noOptionsMessage?: string
   loadingMessage?: string
   className?: string
 }
