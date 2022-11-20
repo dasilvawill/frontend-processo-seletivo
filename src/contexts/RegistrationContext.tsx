@@ -10,6 +10,11 @@ type UserContextType = {
   consultantsOptionsList: any
   setConsultantsOptionsList: (newState: string) => void
 
+  authUser: string
+  setAuthUser: (newState: string) => void
+  authName: string
+  setAuthName: (newState: string) => void
+
   name: string
   setName: (newState: string) => void
   socialName: string
@@ -117,6 +122,9 @@ export const RegistrationContextProvider = ({ children }: RegistrationContextPro
   const [offerList, setOfferList] = useState("")
   const [consultantsOptionsList, setConsultantsOptionsList] = useState("")
 
+  const [authUser, setAuthUser] = useState("")
+  const [authName, setAuthName] = useState("")
+
   const [name, setName] = useState("")
   const [socialName, setSocialName] = useState("")
   const [email, setEmail] = useState("")
@@ -180,6 +188,11 @@ export const RegistrationContextProvider = ({ children }: RegistrationContextPro
         setOfferList,
         consultantsOptionsList,
         setConsultantsOptionsList,
+
+        authUser,
+        setAuthUser,
+        authName,
+        setAuthName,
 
         name,
         setName,

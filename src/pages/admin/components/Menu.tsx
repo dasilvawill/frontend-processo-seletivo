@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import Swal from "sweetalert2"
 import Input from "../../../components/Input"
 import { RegistrationContext } from "../../../contexts/RegistrationContext"
 import { api } from "../../../services/api"
 
 export default function Menu() {
-  const { candidateData, setCandidateData } = useContext(RegistrationContext)
+  const { candidateData, setCandidateData, authName = 'TESTE' } = useContext(RegistrationContext)
   const [redirect, setRedirect] = useState("")
   const [cpf, setCpf] = useState("")
 
@@ -30,11 +30,10 @@ export default function Menu() {
       })
   }
 
-  // 03993473051
   return (
     <>
       <div className="hidden md:block flex-col bg-[#bccbcf] w-[23vw] border-r-[#bccbcf] border-r-4 drop-shadow-2xl">
-        <p className="p-4 text-2xl">Olá, Wymblia!</p>
+        <p className="p-4 text-2xl">Olá, {authName} </p>
         <div className="flex-wrap flex-shrink md:flex pt-2 mx-auto text-gray-600">
           <Input
             idInput="userCpf"

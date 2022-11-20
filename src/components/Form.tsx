@@ -130,7 +130,7 @@ export default function Form(props: FormProps) {
       setConsultantsOptions((consultantsOptions) => [
         ...consultantsOptions,
         {
-          value: consultant.user_name,
+          value: consultant.user.user_name,
           label: consultant.complete_name
         }
       ])
