@@ -1,11 +1,14 @@
-import { Fragment, useState } from "react"
+import { Fragment, useState, useContext } from "react"
 import Input from "../components/Input"
 import ButtonNext from "../components/ButtonNext"
 import { api } from "../services/api"
 import HomeAdmin from "./admin/home"
 import Swal from "sweetalert2"
+import { RegistrationContext } from "../contexts/RegistrationContext"
 
 export default function MyApp() {
+
+  const { setAuthName, setAuthUser } = useContext(RegistrationContext)
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
   const [auth, setAuth] = useState(false)
@@ -23,8 +26,10 @@ export default function MyApp() {
           user_name: name,
           password: password
         })
-        setAuth(true)
         localStorage.setItem("token", login.data.token)
+        setAuth(true)
+        setAuthName(login.data.usuario.Person.complete_name.split(' ').slice(0, 1).join(' '))
+        setAuthUser(login.data.usuario.user_name)
       } catch {
         Swal.fire({
           title: "Usuário ou senha inválidos!",
