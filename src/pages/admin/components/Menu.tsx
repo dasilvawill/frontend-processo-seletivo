@@ -17,7 +17,6 @@ export default function Menu() {
       })
       .then((response) => {
         setCandidateData(response.data[0])
-        console.log(candidateData, "candidate")
         setRedirect("/admin/search-candidate")
       })
       .catch(() => {

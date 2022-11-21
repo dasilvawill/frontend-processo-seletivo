@@ -106,7 +106,8 @@ export default function FormCourse(props: CourseProps) {
         ? !unityList.find((value) => value.label === unity.unidade)
           ? unityList.push({
               label: unity["unidade"],
-              value: unity["unidade"]
+              value: unity["unidade"],
+              id: unity["unidade_id"]
             })
           : null
         : null
@@ -130,7 +131,6 @@ export default function FormCourse(props: CourseProps) {
         : null
     })
     setCoursesOptions(coursesList)
-    console.log(coursesOptions, "courses")
   }
 
   useEffect(() => {
@@ -142,14 +142,11 @@ export default function FormCourse(props: CourseProps) {
     setListVestibular(
       offerList.find((value) => value.curso_id === selectedCourse?.value)?.VESTIBULARES
     )
-    console.log(listVestibular, "listtttt")
   }, [selectedCourse])
 
   function fillEntranceExamByModalityAndUnity() {
     if (entryForm?.value === "vestibular") {
       setEntranceExamOptions(listVestibular)
-      console.log(entranceExamOptions, "wwww")
-      console.log(coursesOptions, "lista de cursos")
     }
     // if (entryForm?.value === "vestibular") {
     //   setEntranceExamOptions(listVestibular.label)
